@@ -1,4 +1,5 @@
 // Webpack uses this to work with directories
+
 const path = require('path');
 
 // This is main configuration object.
@@ -12,8 +13,12 @@ module.exports = {
     // Webpack will bundle all JavaScript into this file
     output: {
         path: path.resolve(__dirname, './'),
-        filename: 'bundle.js',
-        hashFunction: 'sha512'
+        filename: 'bundle.js'
+    },
+    resolve: {
+        alias: {
+            handlebars: 'handlebars/dist/handlebars.min.js'
+        }
     },
     module: {
         rules: [

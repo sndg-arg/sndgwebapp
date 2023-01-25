@@ -7,4 +7,5 @@ sed -i 's|require("bootstrap/js/tooltip.js")|require("bootstrap/js/dist/tooltip.
 sed -i 's|require("bootstrap/js/popover.js")|require("bootstrap/js/dist/popover.js")|' ./node_modules/feature-viewer/lib/index.js
 sed -i 's|// FIX scrollbars on Mac||' ./node_modules/msa/css/msa.css
 
-docker run --rm -u $(id -u ${USER}):$(id -g ${USER})  -w $PWD -v $PWD:$PWD webpack bash -c 'npm install'
+docker run --rm -u $(id -u ${USER}):$(id -g ${USER})  -w $PWD -v $PWD:$PWD webpack npm run build
+cp bundle.js ../static/
