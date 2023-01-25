@@ -1,0 +1,87 @@
+{% extends '../base/masterpage.html' %}
+{% load i18n %}
+{% block body %}
+
+<h1>{{ assembly.name }}</h1>
+
+<p class="fs-5 col-md-8">
+    {{ assembly.description }}
+</p>
+
+<div class="input-group">
+    <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+        <option selected>{% trans 'elegir ...' %}</option>
+        <option value="1">{% trans 'Fasta genoma' %}</option>
+        <option value="2">{% trans 'Fasta proteinas nt' %}</option>
+        <option value="2">{% trans 'Fasta proteinas aa' %}</option>
+        <option value="3">{% trans 'GFF genoma' %}</option>
+        <option value="3">{% trans 'GBK genoma' %}</option>
+    </select>
+    <button class="btn btn-outline-secondary" type="button">{% trans 'Descargar' %}</button>
+</div>
+
+<br/>
+
+<div class="input-group input-group-lg">
+    <span class="input-group-text" id="inputGroup-sizing-lg">{% trans 'Navegar: ' %}</span>
+    <button type="button" class="btn btn-danger form-control">{% trans 'Proteínas' %}</button>
+    <button type="button" class="btn btn-warning form-control">{% trans 'Genes' %}</button>
+</div>
+
+
+<hr class="col-3 col-md-2 mb-5"/>
+
+<div class="row g-5">
+    <div class="col-md-6">
+        <h2>{% trans 'Propiedades' %}</h2>
+        <table class="table table-striped">
+
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Anotación</td>
+                <td>Otto</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Tamaño</td>
+                <td>4.41</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>%GC</td>
+                <td>65.6</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+
+<div class="row g-5">
+    <div class="col-md-6">
+        <h2>{% trans 'Relaciones' %}</h2>
+        <p>{% trans 'Datos relacionados con este recurso' %}</p>
+        <ul class="icon-list">
+            <li>{% trans 'Tax' %}: {{assemblt.tax_id}}</li>
+            <li>{% trans 'bioproyecto' %}: {{bioproject.id}}</li>
+        </ul>
+    </div>
+
+
+</div>
+</div>
+
+{% endblock %}
+
+{% block jsloaded %}
+<script>
+    function jsloaded() {
+    }
+</script>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

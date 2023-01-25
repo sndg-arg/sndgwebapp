@@ -1,0 +1,192 @@
+{% extends '../base/masterpage.html' %}
+{% load i18n %}
+
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+
+<h1>{{protein.accession}}</h1>
+<table class="table table-striped">
+
+    <tbody>
+    <tr>
+        <td>{% trans 'Proteína' %}</td>
+        <td>{{ protein.description }}</td>
+    </tr>
+    <tr>
+        <td>{% trans 'Gen' %}</td>
+        <td>{{ protein.gene }}</td>
+    </tr>
+    <tr>
+        <td>{% trans 'Amino acids' %}</td>
+        <td>{{ protein.size }}</td>
+    </tr>
+    <tr>
+        <td>{% trans 'Estado' %}</td>
+        <td>{{ protein.status }}</td>
+    </tr>
+
+    <tr>
+        <td>{% trans 'Ensamblado' %}</td>
+        <td><a href="{% url 'sndgwebapp:assembly' protein.assembly_id %}">{{ protein.assembly_name }}</a></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<div class="input-group">
+    <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+        <option selected>{% trans 'elegir ...' %}</option>
+        <option value="2">{% trans 'Fasta nt' %}</option>
+        <option value="2">{% trans 'Fasta aa' %}</option>
+        <option value="3">{% trans 'GFF' %}</option>
+
+    </select>
+    <button class="btn btn-outline-secondary" type="button">{% trans 'Descargar' %}</button>
+</div>
+
+
+<hr class="col-3 col-md-2 mb-5"/>
+
+<h2>{% trans 'Anotaciones generales' %}</h2>
+{% if annotations %}
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col"> {% trans 'DB' %}</th>
+        <th scope="col"> {% trans 'Familia' %}</th>
+        <th scope="col"> {% trans 'Término' %}</th>
+        <th scope="col"> {% trans 'Nombre' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for annotation in annotations %}
+    <tr>
+        <td>{{annotation.db}}</td>
+        <td>{{annotation.fam}}</td>
+        <td>{{annotation.term}}</td>
+        <td>{{annotation.name}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+
+{% trans 'No se cuenta con esta información' %}
+
+{% endif %}
+
+<hr class="col-3 col-md-2 mb-5"/>
+
+<h2>{% trans 'Anotaciones sobre secuencia' %}</h2>
+
+{% if features %}
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col"> {% trans 'Inicio' %}</th>
+        <th scope="col"> {% trans 'Fin' %}</th>
+        <th scope="col"> {% trans 'DB' %}</th>
+        <th scope="col"> {% trans 'Familia' %}</th>
+        <th scope="col"> {% trans 'Término' %}</th>
+        <th scope="col"> {% trans 'Nombre' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for feature in features %}
+    <tr>
+        <td>{{feature.start}}</td>
+        <td>{{feature.end}}</td>
+        <td>{{feature.db}}</td>
+        <td>{{feature.fam}}</td>
+        <td>{{feature.term}}</td>
+        <td>{{feature.name}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+
+{% trans 'No se cuenta con esta información' %}
+
+{% endif %}
+
+
+<hr class="col-3 col-md-2 mb-5"/>
+
+<h2>{% trans 'Relaciones' %}</h2>
+<div id="protein-sequence-viewer"></div>
+
+
+<hr class="col-3 col-md-2 mb-5"/>
+<h2>{% trans 'Relaciones' %}</h2>
+<p>{% trans 'Datos relacionados con este recurso' %}</p>
+<ul class="icon-list">
+    <li>{% trans 'Tax' %}: {{assemblt.tax_id}}</li>
+    <li>{% trans 'bioproyecto' %}: {{bioproject.id}}</li>
+</ul>
+
+
+{% endblock %}
+
+{% block jsloaded %}
+<script src="https://cdn.jsdelivr.net/gh/calipho-sib/sequence-viewer@master/dist/sequence-viewer.bundle.js"></script>
+
+<script>
+    function jsloaded() {
+        alert(1)
+        var seq1 = new Sequence('MALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYLVCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLENYCNMALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYLVCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLENYCNMALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYLVCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLENYCNMALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYLVCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLENYCNMALWMRLLPLLALLALWGPDPAAAFVNQHLCGSHLVEALYLVCGERGFFYTPKTRREAEDLQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLENYCN');
+        // You can add some rendering options
+        seq1.render('#protein-sequence-viewer', {
+            'showLineNumbers': true,
+            'wrapAminoAcids': true,
+            'charsPerLine': 50,
+            'toolbar': true,
+            'search': true,
+            'title' : "Your title",
+            'sequenceMaxHeight': "300px",
+            'badge': true
+        });
+
+        //function called by "onclick"
+        var onclickFun = function(e) {
+            console.log("Region clicked");
+        }
+
+//Coverage list
+        var exempleSequenceCoverage = [
+            {start: 0, end: 25, color: "black", underscore: false, bgcolor: "#ffd891"},
+            {start: 25, end: 47, color: "#ff0000", underscore: false, tooltip: "this is a tooltip"},
+            {start: 47, end: 54, color: "#ff0000", underscore: true},
+            {start: 54, end: 55, color: "#ff0000", underscore: false},
+            {start: 55, end: 56, color: "black", underscore: false},
+            {start: 56, end: 89, color: "#69CC33", underscore: false, onclick:onclickFun},
+            {start: 89, end: 90, color: "black", underscore: false},
+            {start: 90, end: 110, color: "#ff0000", underscore: false}
+        ];
+
+
+
+        seq1.coverage(exempleSequenceCoverage);
+// for coverage + highlight :
+// seq3.coverage(exempleSequenceCoverage, start, end, highlightColor);
+
+//Define Legend and color codes
+        var exempleLegend = [
+            {name: "Mature Protein", color: "#ff0000", underscore: false},
+            {name: "Proteotypic peptide", color: "#69CC33", underscore: false},
+            {name: "Synthetic peptide",color: "#fff",underscore: true}
+        ];
+        seq1.addLegend(exempleLegend);
+
+    }
+    $(document).ready(jsloaded)
+</script>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
