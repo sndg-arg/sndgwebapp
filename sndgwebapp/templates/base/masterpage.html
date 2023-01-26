@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+
+    <title> {% trans "SNDG" %} </title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+
+    {% block head %}
+
+    {% endblock %}
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'sndgwebapp:index' %}">{% trans "SNDG" %}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="{% url 'sndgwebapp:index' %}">{% trans "Datos" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sndgwebapp:index' %}">{% trans "Servicios" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sndgwebapp:index' %}">{% trans "Estadísticas" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sndgwebapp:index' %}">{% trans "Sobre el SNDG" %}</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <form class="d-flex">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown"
+                           aria-expanded="false"><span class="navbar-toggler-icon"></span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                            <li><a class="dropdown-item" href="{% url 'sndgwebapp:index' %}">{% trans "Ingresar" %}</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'sndgwebapp:index' %}">{% trans "Mis Datos" %}</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'sndgwebapp:index' %}">{% trans "Desloguearse"
+                                %}</a></li>
+                        </ul>
+                    </li>
+                </form>
+            </ul>
+
+        </div>
+    </div>
+
+
+</nav>
+
+<main class="container">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            {% block body %}
+
+            {% endblock %}
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3 bg-light">
+
+
+    {% block footer %}
+    <div class="container">
+        <span class="text-muted">Place sticky footer content here.</span>
+    </div>
+    {% endblock %}
+</footer>
+
+<script>
+
+
+</script>
+
+<script src="{% static 'bundle.js' %}"></script>
+
+
+{% block jsloaded %}
+
+
+<script>
+    function jsloaded() {
+    }
+
+</script>
+
+
+{% endblock %}
+
+</body>
+</html>
