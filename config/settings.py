@@ -58,6 +58,7 @@ if not WORKERPROC:
 
 LOCAL_APPS = [
     "sndgjobs",
+    "bioseq",
     "sndgwebapp",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
