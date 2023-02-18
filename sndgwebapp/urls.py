@@ -1,6 +1,7 @@
 from django.urls import path
 
 from .views.AssemblyView import AssemblyView
+from .views.DownloadView import DownloadView
 from .views.IndexView import IndexView
 from .views.ProteinView import ProteinView
 from .views.TestCelery import test_celery
@@ -22,5 +23,6 @@ urlpatterns = [
     path("",view=IndexView.as_view(),name="index"),
     path("assembly/<str:assembly_id>",view=AssemblyView.as_view(),name="assembly"),
     path("protein/<str:protein_id>",view=ProteinView.as_view(),name="protein"),
+    path("download",view=DownloadView.as_view(),name="download"),
 
 ]
