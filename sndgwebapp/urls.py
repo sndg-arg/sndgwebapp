@@ -1,10 +1,13 @@
 from django.urls import path
 
+#from .views.TestCelery import test_celery
+
 from .views.AssemblyView import AssemblyView
 from .views.DownloadView import DownloadView
 from .views.IndexView import IndexView
 from .views.ProteinView import ProteinView
 from .views.TestCelery import test_celery
+
 from sndgwebapp.views.UserViews import (
     user_detail_view,
     user_redirect_view,
@@ -12,7 +15,6 @@ from sndgwebapp.views.UserViews import (
 )
 
 from .admin import *
-
 
 app_name = "sndgwebapp"
 urlpatterns = [
