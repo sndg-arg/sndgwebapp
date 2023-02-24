@@ -193,9 +193,9 @@ if USE_TZ:
 if not DBTASK:
     pass
     # https://docs.celeryq.dev/en/stable/userguide/configuration.html#std:setting-broker_url
-    #CELERY_BROKER_URL = env("CELERY_BROKER_URL")
+    # CELERY_BROKER_URL = env("CELERY_BROKER_URL")
     # https://docs.celeryq.dev/en/stable/userguide/configuration.html#std:setting-result_backend
-    #CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+    # CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#std:setting-accept_content
 CELERY_ACCEPT_CONTENT = ["json"]
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#std:setting-task_serializer
@@ -249,8 +249,11 @@ SOCIALACCOUNT_ADAPTER = "sndgwebapp.adapters.AccountAdapters.SocialAccountAdapte
 
 
 if DEBUG:
-    SECRET_KEY = "123"
     sys.stderr.write("Debug mode!\n")
+    JBROWSE_BASE_URL = env("JBROWSE_BASE_URL", default="http://localhost:3000/")
+    SEQS_DATA_DIR = env("SEQS_DATA_DIR", default="./data/")
+    SECRET_KEY = "123"
+
 
     INSTALLED_APPS.append("debug_toolbar")
     INSTALLED_APPS.append('django_extensions')
@@ -279,6 +282,10 @@ if DEBUG:
     """
 
 else:
+
+    JBROWSE_BASE_URL = env("JBROWSE_BASE_URL")
+    SEQS_DATA_DIR = env("SEQS_DATA_DIR")
+
     # CACHE_URL=memcache://127.0.0.1:11211,127.0.0.1:11212,127.0.0.1:11213
     # REDIS_URL=rediscache://127.0.0.1:6379/1?client_class=django_redis.client.DefaultClient&password=ungithubbed-secret
 
@@ -366,4 +373,3 @@ else:
         environment=env("SENTRY_ENVIRONMENT", default="production"),
         traces_sample_rate=env.float("SENTRY_TRACES_SAMPLE_RATE", default=0.0),
     )
-

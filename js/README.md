@@ -9,3 +9,4 @@ sed -i 's|// FIX scrollbars on Mac||' ./node_modules/msa/css/msa.css
 
 docker run --rm -u $(id -u ${USER}):$(id -g ${USER})  -w $PWD -v $PWD:$PWD webpack npm run build
 cp bundle.js ../static/
+
