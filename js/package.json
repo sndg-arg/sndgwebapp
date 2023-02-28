@@ -23,7 +23,8 @@
     "popper.js": "^1.14.1",
     "feature-viewer": "^1.2.1",
     "ngl":"^2.0.2",
-    "protvista-track": "^3.8.8"
+    "protvista-track": "^3.8.8",
+    "@rdkit/rdkit": "^2022"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
